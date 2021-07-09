@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">Stock Quotes Hilt MVVM</string>
+    <string name="ticker_symbol">Ticker Symbol</string>
+    <string name="price">Last Price: $%1$s</string>
+</resources>
