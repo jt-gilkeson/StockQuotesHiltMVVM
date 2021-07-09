@@ -1,16 +1,13 @@
 package com.jt.stockquoteshiltmvvm.presentation
 
 import androidx.lifecycle.MutableLiveData
-
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.jt.stockquoteshiltmvvm.domain.repository.QuoteRepository
-
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import javax.inject.Inject
-
 
 @HiltViewModel
 class MainViewModel @Inject constructor(
@@ -21,15 +18,15 @@ class MainViewModel @Inject constructor(
 
     val loading = MutableLiveData<Boolean>()
 
-    fun onTriggerEvent(event: QuoteEvent){
+    fun onTriggerEvent(event: QuoteEvent) {
         viewModelScope.launch {
             try {
-                when(event){
+                when (event) {
                     is QuoteEvent.GetQuoteEvent -> {
-                            getQuote(event.symbol)
+                        getQuote(event.symbol)
                     }
                 }
-            }catch (e: Exception){
+            } catch (e: Exception) {
                 loading.value = false
                 quote.value = e.toString()
                 e.printStackTrace()
@@ -37,11 +34,11 @@ class MainViewModel @Inject constructor(
         }
     }
 
-    private suspend fun getQuote(symbol: String){
+    private suspend fun getQuote(symbol: String) {
         loading.value = true
 
         // simulate a delay to show loading
-        delay(1000)
+        delay(500)
 
         val quote = repository.getQuote(symbol)
         this.quote.value = quote.quote.toString()
