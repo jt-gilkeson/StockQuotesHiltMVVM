@@ -1,6 +1,5 @@
 package com.jt.stockquoteshiltmvvm.presentation
 
-
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.Observer
 import com.jt.stockquoteshiltmvvm.domain.model.Quote
@@ -19,7 +18,6 @@ import org.mockito.Mock
 import org.mockito.Mockito.doReturn
 import org.mockito.Mockito.verify
 import org.mockito.MockitoAnnotations
-
 
 @ExperimentalCoroutinesApi
 @RunWith(JUnit4::class)
@@ -47,22 +45,23 @@ class MainViewModelTest {
     }
 
     @Test
-    fun `Verify livedata values changes on event`() = coroutinesTestRule.testDispatcher.runBlockingTest {
-        //Given
-        val testSymbol = "TEST"
-        doReturn(Quote(5.0)).`when`(quoteRepository).getQuote(testSymbol)
-        val event = QuoteEvent.GetQuoteEvent(testSymbol)
-        val loading = viewModel.getLoading()
-        loading.observeForever(observer)
+    fun `Verify livedata values changes on event`() =
+        coroutinesTestRule.testDispatcher.runBlockingTest {
+            //Given
+            val testSymbol = "TEST"
+            doReturn(Quote(5.0)).`when`(quoteRepository).getQuote(testSymbol)
+            val event = QuoteEvent.GetQuoteEvent(testSymbol)
+            val loading = viewModel.getLoading()
+            loading.observeForever(observer)
 
-        //When
-        viewModel.onTriggerEvent(event)
+            //When
+            viewModel.onTriggerEvent(event)
 
-        //Then
-        verify(observer).onChanged(true)
-        assertEquals(true, loading.value)
+            //Then
+            verify(observer).onChanged(true)
+            assertEquals(true, loading.value)
 
-        advanceTimeBy(1000)
-        assertEquals(false, loading.value)
-    }
+            advanceTimeBy(1000)
+            assertEquals(false, loading.value)
+        }
 }
