@@ -1,6 +1,7 @@
 package com.jt.stockquoteshiltmvvm.presentation
 
-import android.arch.core.executor.testing.InstantTaskExecutorRule
+
+import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.Observer
 import com.jt.stockquoteshiltmvvm.domain.repository.QuoteRepository
 import com.jt.stockquoteshiltmvvm.utils.CoroutinesTestRule
