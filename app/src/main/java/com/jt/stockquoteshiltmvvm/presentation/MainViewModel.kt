@@ -1,5 +1,6 @@
 package com.jt.stockquoteshiltmvvm.presentation
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -14,9 +15,13 @@ class MainViewModel @Inject constructor(
     private val repository: QuoteRepository
 ) : ViewModel() {
 
-    val quote = MutableLiveData<String?>()
+    private val quote = MutableLiveData<String?>()
 
-    val loading = MutableLiveData<Boolean>()
+    private val loading = MutableLiveData<Boolean>()
+
+    fun getQuote() : LiveData<String?> { return quote }
+
+    fun getLoading() : LiveData<Boolean> { return loading }
 
     fun onTriggerEvent(event: QuoteEvent) {
         viewModelScope.launch {

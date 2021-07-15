@@ -28,16 +28,17 @@ class MainActivity : AppCompatActivity() {
 
         binding.symbol.setOnEditorActionListener { _, actionId, event ->
             if (actionId == EditorInfo.IME_ACTION_DONE ||
-                (actionId == EditorInfo.IME_NULL && event.keyCode == KeyEvent.KEYCODE_ENTER)) {
+                (actionId == EditorInfo.IME_NULL && event.keyCode == KeyEvent.KEYCODE_ENTER)
+            ) {
                 val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-                imm.hideSoftInputFromWindow( binding.symbol.windowToken, 0)
+                imm.hideSoftInputFromWindow(binding.symbol.windowToken, 0)
 
                 viewModel.onTriggerEvent(
                     QuoteEvent.GetQuoteEvent(
                         binding.symbol.text.toString()
                     )
                 )
-                
+
                 false
             } else {
                 true
@@ -46,19 +47,17 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun observeViewModel() {
-        viewModel.quote.observe(this, { quote ->
+        viewModel.getQuote().observe(this, { quote ->
             quote?.let {
                 binding.price.visibility = View.VISIBLE
                 binding.price.text = getString(R.string.price, it)
             }
         })
 
-        viewModel.loading.observe(this, { isLoading ->
-            isLoading?.let {
-                binding.loadingView.visibility = if (it) View.VISIBLE else View.GONE
-                if (it) {
-                    binding.price.visibility = View.INVISIBLE
-                }
+        viewModel.getLoading().observe(this, { isLoading ->
+            binding.loadingView.visibility = if (isLoading) View.VISIBLE else View.GONE
+            if (isLoading) {
+                binding.price.visibility = View.INVISIBLE
             }
         })
     }
