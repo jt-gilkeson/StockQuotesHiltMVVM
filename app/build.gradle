@@ -30,7 +30,9 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
     }
-
+    testOptions {
+        unitTests.returnDefaultValues = true
+    }
     buildFeatures {
         viewBinding = true
     }
@@ -65,6 +67,7 @@ dependencies {
     testImplementation 'junit:junit:4.13.2'
     testImplementation 'android.arch.core:core-testing:1.1.1'
     testImplementation 'org.mockito:mockito-core:3.8.0'
+    testImplementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.5.1'
     testImplementation 'org.jetbrains.kotlinx:kotlinx-coroutines-test:1.5.1'
 
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'
