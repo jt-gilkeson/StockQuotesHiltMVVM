@@ -3,6 +3,7 @@ package com.jt.stockquoteshiltmvvm.presentation
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.Observer
+import com.jt.stockquoteshiltmvvm.domain.model.Quote
 import com.jt.stockquoteshiltmvvm.domain.repository.QuoteRepository
 import com.jt.stockquoteshiltmvvm.utils.CoroutinesTestRule
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -13,7 +14,9 @@ import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.junit.runners.JUnit4
+import org.mockito.ArgumentMatchers.anyString
 import org.mockito.Mock
+import org.mockito.Mockito.doReturn
 import org.mockito.Mockito.verify
 import org.mockito.MockitoAnnotations
 
@@ -46,11 +49,12 @@ class MainViewModelTest {
     @Test
     fun `Verify livedata values changes on event`() = coroutinesTestRule.testDispatcher.runBlockingTest {
         //Given
-        val event = QuoteEvent.GetQuoteEvent("TEST")
+        val testSymbol = "TEST"
+        doReturn(Quote(5.0)).`when`(quoteRepository).getQuote(testSymbol)
+        val event = QuoteEvent.GetQuoteEvent(testSymbol)
         viewModel.getLoading().observeForever(observer)
 
         //When
-        verify(observer).onChanged(false)
         viewModel.onTriggerEvent(event)
 
         //Then
