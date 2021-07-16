@@ -45,7 +45,7 @@ class MainViewModel @Inject constructor(
         // simulate a delay to show loading
         delay(500)
 
-        val quote = repository.getQuote(symbol)
+        val quote = repository.getQuote(symbol.uppercase())
         this.quote.value = quote.quote.toString()
 
         loading.value = false
