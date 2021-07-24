@@ -24,16 +24,16 @@ import org.mockito.MockitoAnnotations
 class MainViewModelTest {
 
     @get:Rule
-    var rule = InstantTaskExecutorRule()
+    var instantTaskExecutorRule = InstantTaskExecutorRule()
 
     @get:Rule
     var coroutinesTestRule = CoroutinesTestRule()
 
     @Mock
-    lateinit var quoteRepository: QuoteRepository
+    lateinit var mockQuoteRepository: QuoteRepository
 
     @Mock
-    lateinit var observer: Observer<Boolean>
+    lateinit var mockObserver: Observer<Boolean>
 
     private lateinit var viewModel: MainViewModel
 
@@ -41,7 +41,7 @@ class MainViewModelTest {
     fun setup() {
         MockitoAnnotations.openMocks(this)
 
-        viewModel = MainViewModel(quoteRepository)
+        viewModel = MainViewModel(mockQuoteRepository)
     }
 
     @Test
@@ -49,16 +49,16 @@ class MainViewModelTest {
         coroutinesTestRule.testDispatcher.runBlockingTest {
             //Given
             val testSymbol = "TEST"
-            doReturn(Quote(5.0)).`when`(quoteRepository).getQuote(testSymbol)
+            doReturn(Quote(5.0)).`when`(mockQuoteRepository).getQuote(testSymbol)
             val event = QuoteEvent.GetQuoteEvent(testSymbol)
             val loading = viewModel.getLoading()
-            loading.observeForever(observer)
+            loading.observeForever(mockObserver)
 
             //When
             viewModel.onTriggerEvent(event)
 
             //Then
-            verify(observer).onChanged(true)
+            verify(mockObserver).onChanged(true)
             assertEquals(true, loading.value)
 
             advanceTimeBy(1000)
