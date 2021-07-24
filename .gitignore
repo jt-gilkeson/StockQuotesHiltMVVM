@@ -1,6 +1,6 @@
 # Intellij project files
 *.iml
-.idea
+.idea/
 
 # OS generated files
 .DS_Store
@@ -47,3 +47,4 @@ captures/
 # Android Profiling
 *.hprof
 libs/
+
