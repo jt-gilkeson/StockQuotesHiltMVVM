@@ -21,7 +21,7 @@ import org.mockito.MockitoAnnotations
 
 @ExperimentalCoroutinesApi
 @RunWith(JUnit4::class)
-class MainViewModelTest {
+class MainViewModelMockitoTest {
 
     @get:Rule
     var instantTaskExecutorRule = InstantTaskExecutorRule()
