@@ -1,6 +1,7 @@
 # Intellij project files
 *.iml
-.idea/
+.idea/*
+!.idea/copyright
 
 # OS generated files
 .DS_Store
